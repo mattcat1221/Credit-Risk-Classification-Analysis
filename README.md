@@ -11,11 +11,6 @@ In this challenge, I used various techniques to train and evaluate a model based
 # Credit Risk Classification Analysis
 ![MIT](https://img.shields.io/badge/License-MIT-blue)
 
-## Website: 
-[website](https://github.com/mattcat1221/Credit-Risk-Classification-Analysis)
-
-
-
 
 ## Table of Contents
 - [Installation](#installation)
