@@ -15,7 +15,7 @@ In this challenge, I used various techniques to train and evaluate a model based
 [website](https://github.com/mattcat1221/Credit-Risk-Classification-Analysis)
 
 
-![app_image](/Users/cmatthews/Desktop/Data-Analyst/Projects/Credit Risk Classification Analysis/interestrates by loan status.png)
+
 
 ## Table of Contents
 - [Installation](#installation)
