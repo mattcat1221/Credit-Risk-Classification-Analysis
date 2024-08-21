@@ -41,7 +41,7 @@ MIT
 
 
 
-[Credit Risk Classication Analysis](https://crcawebsite.vercel.app)
+[Credit Risk Classication Analysis Website](https://crcawebsite.vercel.app)
 1. Line Chart: Loan Sizes Over Time
 Purpose: This chart visualizes the loan sizes over a period, often represented by different loans (e.g., Loan 1, Loan 2, etc.).
 Interpretation:
