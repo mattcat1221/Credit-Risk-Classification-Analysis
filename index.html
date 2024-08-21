@@ -9,21 +9,201 @@
     <!-- Include necessary libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-funnel"></script>
-
+    <!-- Funnel plugin (if needed in the future) -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-funnel"></script> -->
 </head>
 <body>
     <nav>Credit Risk Classification Analysis</nav>
 
     <main>
         <!-- Canvas for the charts -->
+        <canvas id="lineChart" width="400" height="400"></canvas>
         <canvas id="barChart" width="400" height="200"></canvas>
-        <canvas id="funnelChart" width="400" height="400"></canvas>
+        <canvas id="bubbleChart" width="400" height="400"></canvas>
     </main>
 
     <!-- Include your custom JavaScript -->
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/script2.js"></script>
-    <script src="assets/js/Untitled-1.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Function to fetch CSV data
+            const fetchCSVData = async () => {
+                try {
+                    const response = await fetch('Resources/lending_data.csv', {
+                        headers: {
+                            'Content-Type': 'text/csv'
+                        }
+                    });
+                    if (!response.ok) throw new Error('Failed to fetch CSV file');
+                    const data = await response.text();
+                    
+                    // Parse the CSV data into an array of objects
+                    const parsedData = Papa.parse(data, {
+                        header: true,
+                        dynamicTyping: true
+                    }).data;
+
+                    return parsedData;
+                } catch (error) {
+                    console.error('Error fetching or parsing data:', error);
+                    return []; // Return an empty array if an error occurs
+                }
+            };
+
+            // Fetch and parse the CSV data
+            const data = await fetchCSVData();
+            if (data.length === 0) {
+                console.error('No data to display');
+                return; // Exit if no data is returned
+            }
+
+            // Extract labels and data for the charts
+            const labels = data.map((d, index) => `Loan ${index + 1}`);
+            const loanSizes = data.map(d => d.loan_size);
+            const tooltips = data.map(d => ({
+                interest_rate: d.interest_rate,
+                borrower_income: d.borrower_income,
+                debt_to_income: d.debt_to_income,
+                num_of_accounts: d.num_of_accounts,
+                derogatory_marks: d.derogatory_marks,
+                total_debt: d.total_debt,
+                loan_status: d.loan_status
+            }));
+            const bubbleData = data.map(d => ({
+                x: d.borrower_income,
+                y: d.debt_to_income,
+                r: Math.sqrt(d.loan_size) / 10,
+                loan_size: d.loan_size,
+                interest_rate: d.interest_rate,
+                num_of_accounts: d.num_of_accounts,
+                derogatory_marks: d.derogatory_marks,
+                total_debt: d.total_debt,
+                loan_status: d.loan_status
+            }));
+
+            // Create the Line Chart with Lavender color
+            const lineCtx = document.getElementById('lineChart').getContext('2d');
+            new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Loan Sizes Over Time',
+                        data: loanSizes,
+                        backgroundColor: 'rgba(230, 230, 250, 0.2)', // Lavender background
+                        borderColor: 'rgba(230, 230, 250, 1)', // Lavender border
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Create the Bar Chart
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Loan Sizes',
+                        data: loanSizes,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.8)',   // Teal
+                            'rgba(255, 159, 128, 0.8)',  // Peach
+                            'rgba(44, 62, 80, 0.8)',     // Soft Navy Blue
+                            'rgba(233, 87, 63, 0.8)',    // Muted Coral
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',      // Teal
+                            'rgba(255, 159, 128, 1)',     // Peach
+                            'rgba(44, 62, 80, 1)',        // Soft Navy Blue
+                            'rgba(233, 87, 63, 1)',       // Muted Coral
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return [
+                                        `Loan Size: ${context.raw}`,
+                                        `Interest Rate: ${tooltips[context.dataIndex].interest_rate}`,
+                                        `Borrower Income: ${tooltips[context.dataIndex].borrower_income}`,
+                                        `Debt-to-Income: ${tooltips[context.dataIndex].debt_to_income}`,
+                                        `Number of Accounts: ${tooltips[context.dataIndex].num_of_accounts}`,
+                                        `Derogatory Marks: ${tooltips[context.dataIndex].derogatory_marks}`,
+                                        `Total Debt: ${tooltips[context.dataIndex].total_debt}`,
+                                        `Loan Status: ${tooltips[context.dataIndex].loan_status}`
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Create the Bubble Chart
+            const bubbleCtx = document.getElementById('bubbleChart').getContext('2d');
+            new Chart(bubbleCtx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Loan Analysis',
+                        data: bubbleData,
+                        backgroundColor: bubbleData.map(() => 'rgba(75, 192, 192, 0.5)'),  // Teal
+                        borderColor: bubbleData.map(() => 'rgba(44, 62, 80, 1)'),          // Soft Navy Blue
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Borrower Income'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Debt-to-Income Ratio'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const data = context.raw;
+                                    return [
+                                        `Loan Size: ${data.loan_size}`,
+                                        `Interest Rate: ${data.interest_rate}`,
+                                        `Borrower Income: ${data.x}`,
+                                        `Debt-to-Income: ${data.y}`,
+                                        `Number of Accounts: ${data.num_of_accounts}`,
+                                        `Derogatory Marks: ${data.derogatory_marks}`,
+                                        `Total Debt: ${data.total_debt}`,
+                                        `Loan Status: ${data.loan_status}`
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
