@@ -9,8 +9,6 @@
     <!-- Include necessary libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
-    <!-- Funnel plugin (if needed in the future) -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-funnel"></script> -->
 </head>
 <body>
     <nav>Credit Risk Classification Analysis</nav>
@@ -80,7 +78,7 @@
                 loan_status: d.loan_status
             }));
 
-            // Create the Line Chart with Lavender color
+            // Create the Line Chart with the Viridis color palette
             const lineCtx = document.getElementById('lineChart').getContext('2d');
             new Chart(lineCtx, {
                 type: 'line',
@@ -89,9 +87,9 @@
                     datasets: [{
                         label: 'Loan Sizes Over Time',
                         data: loanSizes,
-                        backgroundColor: 'coral (230, 230, 250, 0.2)', // Lavender background
-                        borderColor: 'rgba(230, 230, 250, 1)', // Lavender border
-                        borderWidth: 1
+                        backgroundColor: 'rgba(68, 1, 84, 0.2)', // Viridis start color
+                        borderColor: 'rgba(253, 231, 37, 1)', // Viridis end color
+                        borderWidth: 2
                     }]
                 },
                 options: {
@@ -103,7 +101,7 @@
                 }
             });
 
-            // Create the Bar Chart
+            // Create the Bar Chart with Viridis colors
             const barCtx = document.getElementById('barChart').getContext('2d');
             new Chart(barCtx, {
                 type: 'bar',
@@ -113,16 +111,18 @@
                         label: 'Loan Sizes',
                         data: loanSizes,
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.8)',   // Teal
-                            'rgba(255, 159, 128, 0.8)',  // Peach
-                            'rgba(44, 62, 80, 0.8)',     // Soft Navy Blue
-                            'rgba(233, 87, 63, 0.8)',    // Muted Coral
+                            'rgba(68, 1, 84, 0.8)',   // Viridis start color
+                            'rgba(59, 82, 139, 0.8)', // Viridis mid color
+                            'rgba(33, 145, 140, 0.8)',// Viridis mid color
+                            'rgba(94, 201, 98, 0.8)', // Viridis mid color
+                            'rgba(253, 231, 37, 0.8)' // Viridis end color
                         ],
                         borderColor: [
-                            'rgba(75, 192, 192, 1)',      // Teal
-                            'rgba(255, 159, 128, 1)',     // Peach
-                            'rgba(44, 62, 80, 1)',        // Soft Navy Blue
-                            'rgba(233, 87, 63, 1)',       // Muted Coral
+                            'rgba(68, 1, 84, 1)',   // Viridis start color
+                            'rgba(59, 82, 139, 1)', // Viridis mid color
+                            'rgba(33, 145, 140, 1)',// Viridis mid color
+                            'rgba(94, 201, 98, 1)', // Viridis mid color
+                            'rgba(253, 231, 37, 1)' // Viridis end color
                         ],
                         borderWidth: 1
                     }]
@@ -154,7 +154,7 @@
                 }
             });
 
-            // Create the Bubble Chart
+            // Create the Bubble Chart with Viridis colors
             const bubbleCtx = document.getElementById('bubbleChart').getContext('2d');
             new Chart(bubbleCtx, {
                 type: 'bubble',
@@ -162,8 +162,8 @@
                     datasets: [{
                         label: 'Loan Analysis',
                         data: bubbleData,
-                        backgroundColor: bubbleData.map(() => 'rgba(75, 192, 192, 0.5)'),  // Teal
-                        borderColor: bubbleData.map(() => 'rgba(44, 62, 80, 1)'),          // Soft Navy Blue
+                        backgroundColor: 'rgba(68, 1, 84, 0.5)',  // Viridis start color
+                        borderColor: 'rgba(253, 231, 37, 1)',      // Viridis end color
                         borderWidth: 1
                     }]
                 },
@@ -205,22 +205,37 @@
             });
         });
     </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>Global Land Temperatures</title>
-</head>
-<body>
-    <nav>Global Land Temperatures by Major City</nav>
 
     <main>
-        <!-- Include the image of the graph -->
-        <img src="assets/images/temperature_plot.png" alt="Global Land Temperatures by Major City" width="100%">
-    </main>
-</body>
-</html>
+        <h1>Explanation of Charts</h1>
+
+        <h2>1. Line Chart: Loan Sizes Over Time</h2>
+        <p>
+            <strong>Purpose:</strong> This chart visualizes the loan sizes over a period, often represented by different loans (e.g., Loan 1, Loan 2, etc.).
+        </p>
+        <p>
+            <strong>Interpretation:</strong>
+            <ul>
+                <li>If the line is ascending, it indicates an increase in loan sizes over time or across different loans.</li>
+                <li>A descending line would suggest a decrease in loan sizes.</li>
+                <li>Fluctuations in the line can indicate volatility or inconsistency in the loan sizes granted.</li>
+            </ul>
+        </p>
+
+        <h2>2. Bar Chart: Loan Sizes</h2>
+        <p>
+            <strong>Purpose:</strong> The bar chart presents a comparative view of the loan sizes for each loan (e.g., Loan 1, Loan 2, etc.).
+        </p>
+        <p>
+            <strong>Interpretation:</strong>
+            <ul>
+                <li>Taller bars represent larger loans, while shorter bars represent smaller loans.</li>
+                <li>This chart is useful for quickly comparing the size of different loans.</li>
+                <li>The colors (Viridis palette) differentiate between the loans, helping in visual distinction.</li>
+            </ul>
+        </p>
+
+        <h2>3. Bubble Chart: Loan Analysis</h2>
+        <p>
+            <strong>Purpose:</strong> The bubble chart is a multidimensional chart that visualizes the relationship between borrower income, debt-to-income ratio, and loan size.
+       
