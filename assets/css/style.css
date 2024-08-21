@@ -9,3 +9,9 @@ nav{
     text-decoration: underline;
     color: grey;
 }
+
+main {
+    width: 80%;
+    overflow: hidden;
+    margin: 10%;
+}

@@ -87,7 +87,7 @@
                     datasets: [{
                         label: 'Loan Sizes Over Time',
                         data: loanSizes,
-                        backgroundColor: 'rgba(68, 1, 84, 0.8)', // Viridis start color
+                        backgroundColor: 'rgba(68, 1, 84, 0.2)', // Viridis start color
                         borderColor: 'rgba(253, 231, 37, 1)', // Viridis end color
                         borderWidth: 2
                     }]
@@ -124,7 +124,7 @@
                             'rgba(94, 201, 98, 1)', // Viridis mid color
                             'rgba(253, 231, 37, 1)' // Viridis end color
                         ],
-                        borderWidth: 5
+                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -235,22 +235,4 @@
             </ul>
         </p>
 
-        <h2>3. Bubble Chart: Loan Analysis</h2>
-<p>
-    <strong>Purpose:</strong> The bubble chart is a multidimensional chart that visualizes the relationship between borrower income, debt-to-income ratio, and loan size.
-</p>
-<p>
-    <strong>Interpretation:</strong>
-    <ul>
-        <li><strong>X-Axis (Borrower Income):</strong> Represents the income of the borrower. Higher values on the x-axis indicate higher incomes.</li>
-        <li><strong>Y-Axis (Debt-to-Income Ratio):</strong> Represents the debt-to-income ratio of the borrower. Higher values on the y-axis indicate a higher proportion of income going towards debt.</li>
-        <li><strong>Bubble Size (Loan Size):</strong> The size of the bubble represents the loan size. Larger bubbles indicate larger loans.</li>
-        <li><strong>Color and Border:</strong> The bubbles are styled using the Viridis color palette, with a gradual transition from a dark to light shade, providing a visually appealing and distinct presentation.</li>
-        <li><strong>Insights:</strong>
-            <ul>
-                <li>A large bubble on the far right of the x-axis (high income) and low on the y-axis (low debt-to-income ratio) could indicate that higher-income individuals with low debt burdens are likely to receive larger loans.</li>
-                <li>Conversely, smaller bubbles in the top-left quadrant might suggest that individuals with lower incomes and higher debt-to-income ratios receive smaller loans.</li>
-            </ul>
-        </li>
-    </ul>
-</p>
+        <h2>3. Bubble Chart: Loan Analysis</
