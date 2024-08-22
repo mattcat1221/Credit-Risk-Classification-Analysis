@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Credit Risk Classification and the Environment</title>
+
+    <!-- Include necessary libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+
+    <!-- Section for the Charts -->
+    <h2>Credit Risk Classification Analysis</h2>
+    <canvas id="lineChart" width="400" height="400"></canvas>
+    <canvas id="barChart" width="400" height="200"></canvas>
+    <canvas id="bubbleChart" width="400" height="400"></canvas>
+    <canvas id="pieChart" width="400" height="400"></canvas> <!-- New Pie Chart -->
+
+    <!-- Include your custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Function to fetch CSV data
+            const fetchCSVData = async () => {
+                try {
+                    const response = await fetch('Resources/lending_data.csv', {
+                        headers: { 'Content-Type': 'text/csv' }
+                    });
+                    if (!response.ok) throw new Error('Failed to fetch CSV file');
+                    const data = await response.text();
+
+                    // Parse the CSV data into an array of objects
+                    const parsedData = Papa.parse(data, {
+                        header: true,
+                        dynamicTyping: true
+                    }).data;
+
+                    return parsedData;
+                } catch (error) {
+                    console.error('Error fetching or parsing data:', error);
+                    return []; // Return an empty array if an error occurs
+                }
+            };
+
+            // Fetch and parse the CSV data
+            const data = await fetchCSVData();
+            if (data.length === 0) {
+                console.error('No data to display');
+                return; // Exit if no data is returned
+            }
+
+            // Extract labels and data for the charts
+            const labels = data.map((d, index) => `Loan ${index + 1}`);
+            const loanSizes = data.map(d => d.loan_size);
+            const loanStatuses = data.map(d => d.loan_status); // Extract loan statuses
+            const tooltips = data.map(d => ({
+                interest_rate: d.interest_rate,
+                borrower_income: d.borrower_income,
+                debt_to_income: d.debt_to_income,
+                num_of_accounts: d.num_of_accounts,
+                derogatory_marks: d.derogatory_marks,
+                total_debt: d.total_debt,
+                loan_status: d.loan_status
+            }));
+            const bubbleData = data.map(d => ({
+                x: d.borrower_income,
+                y: d.debt_to_income,
+                r: Math.sqrt(d.loan_size) / 10,
+                loan_size: d.loan_size,
+                interest_rate: d.interest_rate,
+                num_of_accounts: d.num_of_accounts,
+                derogatory_marks: d.derogatory_marks,
+                total_debt: d.total_debt,
+                loan_status: d.loan_status
+            }));
+
+            // Function to create the line chart
+            const createLineChart = () => {
+                const lineCtx = document.getElementById('lineChart').getContext('2d');
+                new Chart(lineCtx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Loan Sizes Over Time',
+                            data: loanSizes,
+                            backgroundColor: 'rgba(68, 1, 84, 0.2)', // Viridis start color
+                            borderColor: 'rgba(253, 231, 37, 1)', // Viridis end color
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            };
+
+            // Function to create the bar chart
+            const createBarChart = () => {
+                const barCtx = document.getElementById('barChart').getContext('2d');
+                new Chart(barCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Loan Sizes',
+                            data: loanSizes,
+                            backgroundColor: [
+                                'rgba(68, 1, 84, 0.8)',   // Viridis start color
+                                'rgba(59, 82, 139, 0.8)', // Viridis mid color
+                                'rgba(33, 145, 140, 0.8)',// Viridis mid color
+                                'rgba(94, 201, 98, 0.8)', // Viridis mid color
+                                'rgba(253, 231, 37, 0.8)' // Viridis end color
+                            ],
+                            borderColor: [
+                                'rgba(68, 1, 84, 1)',   // Viridis start color
+                                'rgba(59, 82, 139, 1)', // Viridis mid color
+                                'rgba(33, 145, 140, 1)',// Viridis mid color
+                                'rgba(94, 201, 98, 1)', // Viridis mid color
+                                'rgba(253, 231, 37, 1)' // Viridis end color
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return [
+                                            `Loan Size: ${context.raw}`,
+                                            `Interest Rate: ${tooltips[context.dataIndex].interest_rate}`,
+                                            `Borrower Income: ${tooltips[context.dataIndex].borrower_income}`,
+                                            `Debt-to-Income: ${tooltips[context.dataIndex].debt_to_income}`,
+                                            `Number of Accounts: ${tooltips[context.dataIndex].num_of_accounts}`,
+                                            `Derogatory Marks: ${tooltips[context.dataIndex].derogatory_marks}`,
+                                            `Total Debt: ${tooltips[context.dataIndex].total_debt}`,
+                                            `Loan Status: ${tooltips[context.dataIndex].loan_status}`
+                                        ];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            // Function to create the bubble chart
+            const createBubbleChart = () => {
+                const bubbleCtx = document.getElementById('bubbleChart').getContext('2d');
+                new Chart(bubbleCtx, {
+                    type: 'bubble',
+                    data: {
+                        datasets: [{
+                            label: 'Loan Analysis',
+                            data: bubbleData,
+                            backgroundColor: 'rgba(68, 1, 84, 0.5)',  // Viridis start color
+                            borderColor: 'rgba(253, 231, 37, 1)',      // Viridis end color
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Borrower Income'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Debt-to-Income Ratio'
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const data = context.raw;
+                                        return [
+                                            `Loan Size: ${data.loan_size}`,
+                                            `Interest Rate: ${data.interest_rate}`,
+                                            `Borrower Income: ${data.x}`,
+                                            `Debt-to-Income: ${data.y}`,
+                                            `Number of Accounts: ${data.num_of_accounts}`,
+                                            `Derogatory Marks: ${data.derogatory_marks}`,
+                                            `Total Debt: ${data.total_debt}`,
+                                            `Loan Status: ${data.loan_status}`
+                                        ];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            // Function to create the pie chart
+            const createPieChart = () => {
+                // Count the occurrences of each loan status
+                const statusCounts = loanStatuses.reduce((acc, status) => {
+                    acc[status] = (acc[status] || 0) + 1;
+                    return acc;
+                }, {});
+
+                const statusLabels = Object.keys(statusCounts);
+                const statusData = Object.values(statusCounts);
+
+                const pieCtx = document.getElementById('pieChart').getContext('2d');
+                new Chart(pieCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: statusLabels,
+                        datasets: [{
+                            label: 'Loan Status Distribution',
+                            data: statusData,
+                            backgroundColor: [
+                                'rgba(75, 192, 192, 0.8)',   // Teal
+                                'rgba(255, 99, 132, 0.8)',   // Pink
+                                'rgba(54, 162, 235, 0.8)',   // Blue
+                                'rgba(255, 206, 86, 0.8)',   // Yellow
+                                'rgba(153, 102, 255, 0.8)'   // Purple
+                            ],
+                            borderColor: [
+                                'rgba(75, 192, 192, 1)',      // Teal
+                                'rgba(255, 99, 132, 1)',      // Pink
+                                'rgba(54, 162, 235, 1)',      // Blue
+                                'rgba(255, 206, 86, 1)',      // Yellow
+                                'rgba(153, 102, 255, 1)'      // Purple
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return `${context.label}: ${context.raw}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            // Create all charts
+            createLineChart();
+            createBarChart();
+            createBubbleChart();
+            createPieChart(); // New pie chart function
+        });
+    </script>
+
+    <main>
+        <h1>Explanation of Charts</h1>
+
+        <h2>1. Line Chart: Loan Sizes Over Time</h2>
+        <p>
+            <strong>Purpose:</strong> This chart visualizes the loan sizes over a period, often represented by different loans (e.g., Loan 1, Loan 2, etc.).
+        </p>
+        <p>
+            <strong>Interpretation:</strong>
+            <ul>
+                <li>If the line is ascending, it indicates an increase in loan sizes over time or across different loans.</li>
+                <li>A descending line would suggest a decrease in loan sizes.</li>
+                <li>Fluctuations in the line can indicate volatility or inconsistency in the loan sizes granted.</li>
+            </ul>
+        </p>
+
+        <h2>2. Bar Chart: Loan Sizes</h2>
+        <p>
+            <strong>Purpose:</strong> The bar chart presents a comparative view of the loan sizes for each loan (e.g., Loan 1, Loan 2, etc.).
+        </p>
+        <p>
+            <strong>Interpretation:</strong>
+            <ul>
+                <li>Taller bars represent larger loans, while shorter bars represent smaller loans.</li>
+                <li>This chart is useful for quickly comparing the size of different loans.</li>
+                <li>The colors (Viridis palette) differentiate between the loans, helping in visual distinction.</li>
+            </ul>
+        </p>
+
+        <h2>3. Bubble Chart: Loan Analysis</h2>
+        <p>
+            <strong>Purpose:</strong> The bubble chart is a multidimensional chart that visualizes the relationship between borrower income, debt-to-income ratio, and loan size.
+        </p>
+        <p>
+            <strong>Interpretation:</strong>
+            <ul>
+                <li><strong>X-Axis (Borrower Income):</strong> Represents the income of the borrower. Higher values on the x-axis indicate higher incomes.</li>
+                <li><strong>Y-Axis (Debt-to-Income Ratio):</strong> Represents the debt-to-income ratio of the borrower. Higher values on the y-axis indicate a higher proportion of income going towards debt.</li>
+                <li><strong>Bubble Size (Loan Size):</strong> The size of the bubble represents the loan size. Larger bubbles indicate larger loans.</li>
+                <li><strong>Color and Border:</strong> The bubbles are styled using the Viridis color palette, with a gradual transition from a dark to light shade, providing a visually appealing and distinct presentation.</li>
+                <li><strong>Insights:</strong>
+                    <ul>
+                        <li>A large bubble on the far right of the x-axis (high income) and low on the y-axis (low debt-to-income ratio) could indicate that higher-income individuals with low debt burdens are likely to receive larger loans.</li>
+                        <li>Conversely, smaller bubbles in the top-left quadrant might suggest that individuals with lower incomes and higher debt-to-income ratios receive smaller loans.</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+
+        <h2>4. Pie Chart: Loan Status Distribution</h2>
+        <p>
+            <strong>Purpose:</strong> The pie chart provides a visual representation of the distribution of loan statuses, helping to understand the proportion of loans that fall into different categories such as "Approved," "Rejected," and "Pending."
+        </p>
+        <p>
+            <strong>Interpretation:</strong>
+            <ul>
+                <li>Larger slices represent more frequent loan statuses.</li>
+                <li>Analyzing the distribution can provide insights into the overall performance of the loan approval process.</li>
+            </ul>
+        </p>
+
+    </main>
+
+</body>
+</html>
