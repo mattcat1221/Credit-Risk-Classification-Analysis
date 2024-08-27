@@ -43,33 +43,7 @@ MIT
 
 
 [Credit Risk Classication Analysis Website](https://crcawebsite.vercel.app)
-1. Line Chart: Loan Sizes Over Time
-Purpose: This chart visualizes the loan sizes over a period, often represented by different loans (e.g., Loan 1, Loan 2, etc.).
-Interpretation:
-If the line is ascending, it indicates an increase in loan sizes over time or across different loans.
-A descending line would suggest a decrease in loan sizes.
-Fluctuations in the line can indicate volatility or inconsistency in the loan sizes granted.
-2. Bar Chart: Loan Sizes
-Purpose: The bar chart presents a comparative view of the loan sizes for each loan (e.g., Loan 1, Loan 2, etc.).
-Interpretation:
-Taller bars represent larger loans, while shorter bars represent smaller loans.
-This chart is useful for quickly comparing the size of different loans.
-The colors (Teal, Peach, Navy Blue, Coral) differentiate between the loans, helping in visual distinction.
-3. Bubble Chart: Loan Analysis
-Purpose: The bubble chart is a multidimensional chart that visualizes the relationship between borrower income, debt-to-income ratio, and loan size.
-Interpretation:
-X-Axis (Borrower Income): Represents the income of the borrower. Higher values on the x-axis indicate higher incomes.
-Y-Axis (Debt-to-Income Ratio): Represents the debt-to-income ratio of the borrower. Higher values on the y-axis indicate a higher proportion of income going towards debt.
-Bubble Size (Loan Size): The size of the bubble represents the loan size. Larger bubbles indicate larger loans.
-Color and Border: The bubbles are colored in Teal with a Navy Blue border, providing a consistent visual style.
-Insights: This chart helps in understanding how borrower income and debt-to-income ratios influence the size of the loans. For example:
-A large bubble (large loan) on the far right of the x-axis (high income) and low on the y-axis (low debt-to-income ratio) could indicate that higher-income individuals with low debt burdens are likely to receive larger loans.
-Conversely, smaller bubbles (small loans) in the top-left quadrant might suggest that individuals with lower incomes and higher debt-to-income ratios receive smaller loans.
-Summary:
-Line Chart shows the trend in loan sizes over time or across different loans.
-Bar Chart provides a quick comparison of the loan sizes.
-Bubble Chart offers a more complex view of how borrower income and debt-to-income ratios correlate with the loan sizes.
-These charts collectively give a comprehensive overview of loan distribution, borrower financial health, and the factors that might influence loan sizes. This analysis can help in understanding lending patterns and identifying potential areas of risk or opportunity in loan portfolios.
+
 
 <img width="863" alt="Screenshot 2024-08-21 at 2 27 32 PM" src="https://github.com/user-attachments/assets/908d06cd-bf2a-4b7e-8f16-1a7e375fefd9">
 
