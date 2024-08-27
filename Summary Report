@@ -27,7 +27,7 @@ Once the model demonstrates satisfactory performance, it is saved in both the le
 
 3. Description of Results
 For healthy loan applicants the model achieved an accuracy of 0.99  on the test dataset, indicating that it correctly classified % 99 of loan applicants. For healthy loan applicants the precision and recall values were 1.00  and 0.99 respectively, which suggests that the model is good at predicting healthy-risk applicants. The loss value, [Insert Loss], is within an acceptable range, indicating that the model's predictions are generally close to the actual outcomes.
-For high risk loan applicants the precision and recall values were 0.86 and 0.94, suggesting that was good/fair at prediciting at predicting high-risk applicants
+For high risk loan applicants the precision and recall values were 0.86 and 0.94, suggesting that was fair at prediciting at predicting high-risk applicants. If there is a significant difference between the metrics for the two classes, it suggests that the model may be biased towards one class, possibly due to an imbalance in the dataset or other factors.
 4. Summary and Recommendation
 Based on the results, the model shows promising potential in accurately classifying credit risk. The balance between precision and recall suggests that the model effectively identifies high-risk applicants, which is crucial for minimizing potential defaults. However, the model’s performance should be monitored over time, and it may require retraining with updated data to maintain its accuracy.
 
