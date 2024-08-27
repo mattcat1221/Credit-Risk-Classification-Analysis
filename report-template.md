@@ -30,3 +30,6 @@ The logistic regression model performs exceptionally well overall, especially fo
 
 Recommendation:
 Given the high accuracy, precision, recall, and F1-scores, the model appears to be effective for predicting both healthy and high-risk loans. The slight drop in precision for high-risk loans suggests that while the model is generally good at identifying high-risk loans, there is room for improvement, particularly in reducing false positives.
+
+
+
