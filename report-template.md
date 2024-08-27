@@ -1,4 +1,4 @@
-# Report Template
+# Report 
 
 ## Overview of the Analysis
 
