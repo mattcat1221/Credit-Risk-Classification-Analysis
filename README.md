@@ -45,9 +45,6 @@ MIT
 [Credit Risk Classication Analysis Website](https://crcawebsite.vercel.app)
 
 
-<img width="863" alt="Screenshot 2024-08-21 at 2 27 32 PM" src="https://github.com/user-attachments/assets/908d06cd-bf2a-4b7e-8f16-1a7e375fefd9">
-
-
 ## Contact
 If there are any questions of concerns, I can be reached at:
 ##### [github: mattcat1221](https://github.com/mattcat1221)
