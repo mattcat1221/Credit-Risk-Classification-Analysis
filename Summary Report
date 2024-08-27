@@ -1,6 +1,6 @@
 Credit Risk Analysis Report
 1. Purpose of the Analysis
-The primary purpose of this analysis is to assess and predict the credit risk associated with loan applicants. By leveraging machine learning techniques, we aim to build a model that can accurately classify applicants into low-risk and high-risk categories, aiding the financial institution in making informed lending decisions. The model is intended to minimize the risk of default while maximizing the approval of loans for reliable borrowers.
+The primary purpose of this analysis is to assess and predict the credit risk associated with loan applicants. By leveraging machine learning techniques, the aim is to build a model that can accurately classify applicants into low-risk and high-risk categories, aiding the financial institution in making informed lending decisions. The model is intended to minimize the risk of default while maximizing the approval of loans for reliable borrowers.
 
 2. Stages of the Machine Learning Model
 a. Data Collection and Preprocessing
