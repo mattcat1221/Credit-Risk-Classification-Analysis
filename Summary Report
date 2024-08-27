@@ -17,7 +17,6 @@ The model is trained on a subset of the data (training data) using backpropagati
 
 d. Model Evaluation
 After training, the model's performance is evaluated on a separate test dataset. The evaluation metrics include:
-
 Accuracy: The percentage of correctly classified instances.
 Precision and Recall: Metrics that evaluate the model’s performance in predicting the positive class (high risk).
 Loss: The difference between the predicted values and actual outcomes.
