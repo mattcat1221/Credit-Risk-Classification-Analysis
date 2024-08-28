@@ -9,6 +9,7 @@ The analysis begins with collecting and preprocessing the dataset, which include
 Handling Missing Values: Any missing data in the dataset is either filled in using appropriate methods or removed, ensuring a complete dataset for training.
 Encoding Categorical Variables: Categorical variables are converted into numerical formats, such as one-hot encoding, to make them suitable for model input.
 Normalization: Numerical features are normalized to ensure that all features contribute equally to the model's learning process.
+
 b. Model Selection and Architecture Design
 A deep neural network model is chosen for this analysis due to its ability to capture complex patterns in data. The model architecture is designed with multiple hidden layers, each with a specified number of neurons and activation functions. The design aims to balance the complexity of the model, ensuring it can generalize well to new data while avoiding overfitting.
 
@@ -27,9 +28,23 @@ e. Model Export
 Once the model demonstrates satisfactory performance, it is saved in both the legacy HDF5 format and the newer Keras format. This allows for flexibility in deployment across different platforms and ensures compatibility with various environments.
 
 3. Description of Results
-The model achieved an accuracy of [Insert Accuracy] on the test dataset, indicating that it correctly classified [Insert Percentage] of loan applicants. The precision and recall values were [Insert Precision] and [Insert Recall], respectively, which suggests that the model is [good/fair] at predicting high-risk applicants. The loss value, [Insert Loss], is within an acceptable range, indicating that the model's predictions are generally close to the actual outcomes.
+The model achieved an accuracy of [99%] on the Healthy Loan dataset, indicating that it correctly classified [99%] of loan applicants. The precision and recall values were [1.0] and [0.99], respectively, which suggests that the model is [good/fair] at predicting high-risk applicants. The loss value, [Insert Loss], is within an acceptable range, indicating that the model's predictions are generally close to the actual outcomes.
+
+
 
 4. Summary and Recommendation
 Based on the results, the model shows promising potential in accurately classifying credit risk. The balance between precision and recall suggests that the model effectively identifies high-risk applicants, which is crucial for minimizing potential defaults. However, the model’s performance should be monitored over time, and it may require retraining with updated data to maintain its accuracy.
 
 Recommendation: Given its current performance, I recommend deploying the model for company use, with the caveat that it should be periodically evaluated and retrained as new data becomes available. This will ensure that the model remains effective in the ever-changing financial landscape.
+
+Model Performance:
+•	Accuracy: The model achieved an accuracy of 99%, indicating that it correctly classified 99% of the loan applicants in the dataset.
+•	Precision:
+o	Healthy Loan: 1.00, meaning the model made no false positive predictions for Healthy Loans.
+o	High-Risk Loan: 0.86, meaning that out of all loans predicted as High-Risk, 86% were actually high-risk.
+•	Recall:
+o	Healthy Loan: 0.99, indicating that the model correctly identified 99% of actual Healthy Loans.
+o	High-Risk Loan: 0.94, indicating that the model correctly identified 94% of actual High-Risk Loans.
+Summary and Recommendation:
+The results from the machine learning model demonstrate a strong overall performance, particularly in predicting Healthy Loans with nearly perfect precision and recall. Although the precision for High-Risk Loans is slightly lower at 86%, the recall is relatively high at 94%, which is crucial for minimizing the risk of default. This balance suggests that the model is effective in identifying high-risk applicants while maintaining a high level of accuracy overall.
+Recommendation: I recommend deploying the model for company use. The model shows promising potential in accurately classifying credit risk, which is vital for making informed lending decisions. However, it is essential to monitor the model’s performance over time and consider retraining it with updated data to ensure it remains effective in the changing financial landscape. Regular evaluation will help maintain its accuracy and relevance.
