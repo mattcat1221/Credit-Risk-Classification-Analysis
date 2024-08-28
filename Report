@@ -1,0 +1,35 @@
+Credit Risk Analysis Report
+1. Purpose of the Analysis
+The primary purpose of this analysis is to assess and predict the credit risk associated with loan applicants. By leveraging machine learning techniques, the aim is to build a model that can accurately classify applicants into low-risk and high-risk categories, aiding the financial institution in making informed lending decisions. The model is intended to minimize the risk of default while maximizing the approval of loans for reliable borrowers.
+
+2. Stages of the Machine Learning Model
+a. Data Collection and Preprocessing
+The analysis begins with collecting and preprocessing the dataset, which includes historical lending data. The preprocessing stage involves:
+
+Handling Missing Values: Any missing data in the dataset is either filled in using appropriate methods or removed, ensuring a complete dataset for training.
+Encoding Categorical Variables: Categorical variables are converted into numerical formats, such as one-hot encoding, to make them suitable for model input.
+Normalization: Numerical features are normalized to ensure that all features contribute equally to the model's learning process.
+b. Model Selection and Architecture Design
+A deep neural network model is chosen for this analysis due to its ability to capture complex patterns in data. The model architecture is designed with multiple hidden layers, each with a specified number of neurons and activation functions. The design aims to balance the complexity of the model, ensuring it can generalize well to new data while avoiding overfitting.
+
+c. Model Training
+The model is trained on a subset of the data (training data) using backpropagation and the Adam optimization algorithm. During training, the model iteratively adjusts its weights to minimize the loss function. This process is monitored using metrics such as accuracy and loss on the validation set.
+
+d. Model Evaluation
+After training, the model's performance is evaluated on a separate test dataset. The evaluation metrics include:
+
+Accuracy: The percentage of correctly classified instances.
+Precision and Recall: Metrics that evaluate the model’s performance in predicting the positive class (high risk).
+Loss: The difference between the predicted values and actual outcomes.
+These metrics provide insight into how well the model generalizes to unseen data and its ability to accurately predict credit risk.
+
+e. Model Export
+Once the model demonstrates satisfactory performance, it is saved in both the legacy HDF5 format and the newer Keras format. This allows for flexibility in deployment across different platforms and ensures compatibility with various environments.
+
+3. Description of Results
+The model achieved an accuracy of [Insert Accuracy] on the test dataset, indicating that it correctly classified [Insert Percentage] of loan applicants. The precision and recall values were [Insert Precision] and [Insert Recall], respectively, which suggests that the model is [good/fair] at predicting high-risk applicants. The loss value, [Insert Loss], is within an acceptable range, indicating that the model's predictions are generally close to the actual outcomes.
+
+4. Summary and Recommendation
+Based on the results, the model shows promising potential in accurately classifying credit risk. The balance between precision and recall suggests that the model effectively identifies high-risk applicants, which is crucial for minimizing potential defaults. However, the model’s performance should be monitored over time, and it may require retraining with updated data to maintain its accuracy.
+
+Recommendation: Given its current performance, I recommend deploying the model for company use, with the caveat that it should be periodically evaluated and retrained as new data becomes available. This will ensure that the model remains effective in the ever-changing financial landscape.
