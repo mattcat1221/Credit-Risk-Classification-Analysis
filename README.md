@@ -9,9 +9,6 @@ In this challenge, I used various techniques to train and evaluate a model based
 ![interestrates by loan status](https://github.com/user-attachments/assets/ed3319f8-0db0-4f64-8e77-4da239f364ad)
 
 
-# Credit Risk Classification Analysis
-![MIT](https://img.shields.io/badge/License-MIT-blue)
-
 
 ## Table of Contents
 - [Installation](#installation)
