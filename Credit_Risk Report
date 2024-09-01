@@ -28,8 +28,7 @@ e. Model Export
 Once the model demonstrates satisfactory performance, it is saved in both the legacy HDF5 format and the newer Keras format. This allows for flexibility in deployment across different platforms and ensures compatibility with various environments.
 
 3. Description of Results
-The model achieved an overall
-accuracy of [99%] on the test dataset, indicating that it correctly classified [99%] of loan applicants. The precision and recall values were respectively, which suggests that the model is [good/fair] at predicting high-risk applicants. The loss value, is within an acceptable range, indicating that the model's predictions are generally close to the actual outcomes.                precision    recall  f1-score   support
+The model achieved an overall accuracy of [99%] on the test dataset, indicating that it correctly classified [99%] of loan Healthy Risk applicants and 94% of High Risk loan applicants. The precision and recall values were respectively, which suggests that the model is [good/fair] at predicting high-risk applicants. The loss value, is within an acceptable range, indicating that the model's predictions are generally close to the actual outcomes.                precision    recall  f1-score   support
 
   Healthy Loan       1.00      0.99      1.00     15001
 High-Risk Loan       0.86      0.94      0.90       507
